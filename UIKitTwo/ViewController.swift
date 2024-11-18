@@ -47,14 +47,18 @@ class ViewController: UIViewController {
         
         textLabel(label: textChangePassword, text: "Изменить пароль", font: .systemFont(ofSize: 16), color: .black, frame: CGRect(x: 30, y: textViewOpisanie.frame.maxY + 33, width: 139, height: 19))
         
-        uiTextField(textField: oldPassword, placeholder: "Старый пароль", frame: CGRect(x: 30, y: textChangePassword.frame.maxY + 10, width: screenLeft, height: 52))
+        uiTextField(textField: oldPassword, placeholder: "Старый пароль", offseY: textChangePassword.frame.maxY + 10 )
         
-        uiTextField(textField: newPassword, placeholder: "Новый пароль", frame: CGRect(x: 30, y: oldPassword.frame.maxY + 10, width: screenLeft, height: 52))
+        uiTextField(textField: newPassword, placeholder: "Новый пароль", offseY: oldPassword.frame.maxY + 10)
         
         buttonLabel(label: saveButton, text: "Сохранить", bg: .systemBlue, frame: CGRect(x: 30, y: screenHeight - 107, width: screenLeft, height: 55), corner: 10)
     }
 
-    private func setupImage(imageContent: UIImage, imageView: UIImageView, frame: CGRect, corner: CGFloat) {
+    private func setupImage(imageContent: UIImage?, imageView: UIImageView, frame: CGRect, corner: CGFloat) {
+        guard let imageContent = imageContent else {
+                print("Ошибка: изображение не найдено")
+                return
+            }
         imageView.frame = frame
         imageView.image = imageContent
         imageView.contentMode = .scaleAspectFill
@@ -87,10 +91,10 @@ class ViewController: UIViewController {
         view.addSubview(textView)
     }
     
-    private func uiTextField(textField: UITextField, placeholder: String, frame: CGRect) {
+    private func uiTextField(textField: UITextField, placeholder: String, offseY: CGFloat) {
         textField.placeholder = placeholder
         textField.backgroundColor = UIColor(red: 240/255, green: 240/255, blue: 240/255, alpha: 1.0)
-        textField.frame = frame
+        textField.frame = CGRect(x: 30, y: offseY, width: screenLeft, height: 52)
         textField.layer.cornerRadius = 20
         textField.leftViewMode = .always
         textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 0))
