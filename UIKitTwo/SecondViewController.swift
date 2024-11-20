@@ -19,6 +19,7 @@ class SecondViewController: UIViewController {
     var buttonDislike = UIButton()
     var textFullName = UILabel()
     var textYearsOld = UILabel()
+    var imageMedal = UIImageView()
     var imageGirl: UIImage? = UIImage(named: "girl")
     
     override func viewDidLoad() {
@@ -27,9 +28,7 @@ class SecondViewController: UIViewController {
         view.backgroundColor = .white
         
         titleText = textLabel(text: "AppName", frame: CGRect(x: 30, y: 63, width: 150, height: 36), font: .boldSystemFont(ofSize: 30), color: .black)
-        image.image = imageGirl
-        image.frame = CGRect(x: 30, y: titleText.frame.maxY + 30, width: screenLeft, height: 352)
-        image.layer.cornerRadius = 40
+        image = setImage(image: imageGirl, frame: CGRect(x: 30, y: titleText.frame.maxY + 30, width: screenLeft, height: 352), corner: 40)
         
         buttonDislike = button(text: "", bg: UIColor(red: 240/255, green: 240/255, blue: 240/255, alpha: 1.0), frame: CGRect(x: 30, y: image.frame.maxY + 28, width: 65, height: 65), image: .not, corner: 35)
         
@@ -40,6 +39,9 @@ class SecondViewController: UIViewController {
         textFullName = textLabel(text: "Имя Фамилия", frame: CGRect(x: 60, y: image.frame.maxY - 80, width: image.frame.maxX - 200, height: 24), font: .boldSystemFont(ofSize: 20), color: .white)
         
         textYearsOld = textLabel(text: "24 года", frame: CGRect(x: 60, y: textFullName.frame.maxY + 5, width: image.frame.maxX - 288, height: 19), font: .systemFont(ofSize: 16, weight: .light), color: .white)
+        imageMedal = setImage(image: .medal, frame: CGRect(x: image.frame.maxX - 171, y: image.frame.maxY - 80, width: 29, height: 29), corner: 0)
+        
+        
         
         
         addSubview()
@@ -53,6 +55,16 @@ class SecondViewController: UIViewController {
         view.addSubview(buttonLike)
         view.addSubview(textFullName)
         view.addSubview(textYearsOld)
+        view.addSubview(imageMedal)
+    }
+    
+    private func setImage(image: UIImage?, frame: CGRect, corner: CGFloat) -> UIImageView {
+        let imageView = UIImageView(frame: frame)
+        imageView.image = image
+        imageView.layer.cornerRadius = corner
+        imageView.clipsToBounds = true
+        
+        return imageView
     }
     
     private func textLabel(text: String, frame: CGRect, font: UIFont, color: UIColor) -> UILabel{
